@@ -1,0 +1,63 @@
+---
+
+---
+
+<div>
+    <div class="bg-gray-800 py-7 px-9 rounded flex flex-col gap-5">
+        <h2 class="text-white font-bold text-2xl">Calculadora para Enviar</h2>
+        <div class="flex flex-col gap-5"
+             x-data="{ send: '',
+          fee: '',
+          receive: '',
+          calculateSend(){
+                this.receive = ((Number(this.send) * 0.946) - 0.3).toFixed(2)
+                this.fee = (this.send - this.receive).toFixed(2)
+          }
+          }">
+            <div>
+                <span class="text-white">Si se envían:</span>
+                <div class="flex justify-between items-center">
+                    <input type="text" x-model="send" @keyup="calculateSend()"
+                           class="inputcito" x-mask:dynamic="$money($input, '.', '')">
+                    <span class="spancito">$USD</span>
+                </div>
+            </div>
+
+            <div>
+                <span class="text-white">La comisión es de:</span>
+                <div class="flex justify-between items-center">
+                    <input x-show="send < 1" placeholder="" disabled class="inputcito placeholder-white">
+                    <input x-show="send >= 1" x-bind:placeholder="fee" disabled class="inputcito placeholder-white">
+                    <span class="spancito">$USD</span>
+                </div>
+            </div>
+
+            <div>
+                <span class="text-white">Se reciben:</span>
+                <div class="flex justify-between items-center">
+                    <input x-show="send < 1" placeholder="" disabled class="inputcito placeholder-white">
+                    <input x-show="send >= 1" x-bind:placeholder="receive" disabled class="inputcito placeholder-white">
+                    <span class="spancito">$USD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .inputcito {
+        height: 56px;
+        border-radius: 0.25rem;
+        width: 100%;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-weight: 700;
+        margin-top: 0.25rem;
+    }
+
+    .spancito {
+        color: #fff;
+        font-weight: 700;
+        margin-left: 1rem;
+    }
+</style>

@@ -1,0 +1,61 @@
+---
+
+---
+
+<div class="bg-gray-800 py-7 px-9 rounded flex flex-col gap-5">
+    <h2 class="text-white font-bold text-2xl">Calculadora para Recibir</h2>
+    <div class="flex flex-col gap-5"
+         x-data="{ receive: '',
+          send: '',
+          fee: '',
+          calculateReceive(){
+                this.send = ((Number(this.receive) + 0.30) / 0.946).toFixed(2)
+                this.fee = (this.send - this.receive).toFixed(2)
+          }
+          }">
+        <div>
+            <span class="text-white">Para recibir:</span>
+            <div class="flex justify-between items-center">
+                <input type="text" x-model="receive" @keyup="calculateReceive()"
+                       class="inputcito" x-mask:dynamic="$money($input, '.', '')">
+                <span class="spancito">$USD</span>
+            </div>
+        </div>
+
+        <div>
+            <span class="text-white">Hay que enviar:</span>
+            <div class="flex justify-between items-center">
+                <input x-show="receive < 1" placeholder="" disabled class="inputcito placeholder-white">
+                <input x-show="receive >= 1" x-bind:placeholder="send" disabled class="inputcito placeholder-white">
+                <span class="spancito">$USD</span>
+            </div>
+        </div>
+
+        <div>
+            <span class="text-white">La comisión es de:</span>
+            <div class="flex justify-between items-center">
+                <input x-show="receive < 1" placeholder="" disabled class="inputcito placeholder-white">
+                <input x-show="receive >= 1" x-bind:placeholder="fee" disabled class="inputcito placeholder-white">
+                <span class="spancito">$USD</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .inputcito {
+        height: 56px;
+        border-radius: 0.25rem;
+        width: 100%;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-weight: 700;
+        margin-top: 0.25rem;
+    }
+
+    .spancito {
+        color: #fff;
+        font-weight: 700;
+        margin-left: 1rem;
+    }
+</style>
